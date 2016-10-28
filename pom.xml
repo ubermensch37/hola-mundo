@@ -53,6 +53,29 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	        <profile>
+            <id>openshift</id>
+            <!--
+                    Setting of OSE_NEXUS_HOST system property does not work with Maven v3.0.5 .... which is version of Maven found in stock RHEL-server 7 based yum repositories
+                    Subsequently, setting of OSE_NEXUS_HOST (similar to the jenkins profile) does not work in OSEv3 S2I (which leverages maven from base RHEL7 OS.
+                    Unfortunately, will need to hard-code URL of NEXUS_HOST
+                -->
+            <build>
+                <finalName>hola-mundo</finalName>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>2.1.1</version>
+                        <configuration>
+                            <outputDirectory>deployments</outputDirectory>
+                            <warName>ROOT</warName>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
 
 
 </project>
