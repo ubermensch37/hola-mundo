@@ -109,7 +109,7 @@
     </dependencies>
       
     <build>
-        <outputDirectory>target/${project.artifactId}/WEB-INF/classes</outputDirectory> 
+        <outputDirectory>target/${project.artifactId}/WEB_INF/classes</outputDirectory> 
                                    
         <plugins>
             <plugin>
@@ -121,9 +121,9 @@
                     <webResources>
                         <!-- in order to interpolate version from pom into appengine-web.xml -->
                         <resource>
-                            <directory>${basedir}/src/main/webapp/WEB-INF</directory>
+                            <directory>${basedir}/src/main/webapp/WEB_INF</directory>
                             <filtering>true</filtering>
-                            <targetPath>WEB-INF</targetPath>
+                            <targetPath>WEB_INF</targetPath>
                         </resource>
                     </webResources>
                 </configuration>
