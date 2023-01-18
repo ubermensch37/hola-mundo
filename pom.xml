@@ -24,12 +24,13 @@
 	</parent>
 
     <!-- Parent POM defines common plugins and properties. -->
+ <!--
     <parent>
       <groupId>com.google.cloud.samples</groupId>
       <artifactId>shared-configuration</artifactId>
       <version>1.0.0</version>
    </parent>
-
+ -->
     <properties>
       <appengine.app.version>1</appengine.app.version>
       <appengine.target.version>1.9.44</appengine.target.version>
