@@ -43,7 +43,7 @@ jobs:
       env:
         REPO: docker.io/${{ secrets.DOCKER_HUB_USER }}
     - name: Tag Image
-      run: docker tag ${{ secrets.DOCKER_IMAGE_NAME }} ${{ DOCKER_HUB_REPO }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.run_id }}   
+      run: docker tag ${{ secrets.DOCKER_IMAGE_NAME }} ${{ secrets.DOCKER_HUB_REPO }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.run_id }}   
     - id: echo2
       run: |
         
