@@ -27,6 +27,10 @@ jobs:
     - id: package
       run: |
         pack build hola-mundo --builder paketobuildpacks/builder:base
+        docker image ls
+        docker tag hola-mundo:latest  ubermensch37/hola-mundo:latest
+        docker image ls
+        docker push  ubermensch37/hola-mundo:latest
       shell: bash
       env:
         REPO: docker.io/${{ secrets.DOCKER_HUB_USER }}
