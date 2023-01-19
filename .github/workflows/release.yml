@@ -22,6 +22,12 @@ jobs:
         registry: docker.io
         username: ${{ secrets.DOCKER_HUB_USER }}
         password: ${{ secrets.DOCKER_HUB_PASS }}
+    - name: Cache Pack
+      id: cache-pack
+      uses: actions/cache@v2
+      with:
+        path: /usr/local/bin/pack
+        key: ${{ runner.os }}-pack-${{ hashFiles('**/pack*') }}
     - id: setup-pack
       uses: buildpacks/github-actions/setup-pack@v4.9.0
     - id: package
