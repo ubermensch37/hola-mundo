@@ -26,7 +26,7 @@ jobs:
       uses: buildpacks/github-actions/setup-pack@v4.9.0
     - id: package
       run: |
-        pack build hola-mundo
+        pack build hola-mundo --builder paketobuildpacks/builder:base
       shell: bash
       env:
         REPO: docker.io/${{ secrets.DOCKER_HUB_USER }}
