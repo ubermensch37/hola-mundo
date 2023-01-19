@@ -31,20 +31,26 @@ jobs:
     - id: setup-pack
       uses: buildpacks/github-actions/setup-pack@v4.9.0
     - name: build image
-      run: pack build hola-mundo --builder paketobuildpacks/builder:base --path . 
-    - id: package
+      run: pack build ${{ secrets.DOCKER_IMAGE_NAME }} --builder ${{ vars.BUILDER }} --path . 
+    - id: echo1
       run: |
         
         docker image ls
         
-        echo "repository variable : ${{ vars.REPOSITORY_VAR }}"
-        echo "organization variable : ${{ vars.ORGANIZATION_VAR }}"
-        echo "overridden variable : ${{ vars.OVERRIDE_VAR }}"
-        echo "variable from shell environment : $env_var"
+        echo "repository variable : ${{ github.run_id }}"
         echo Builder ${{ vars.BUILDER }}
-
-        
       shell: bash
       env:
         REPO: docker.io/${{ secrets.DOCKER_HUB_USER }}
-    
+    - name: Tag Image
+      run: docker tag ${{ secrets.DOCKER_IMAGE_NAME }} ${{ DOCKER_HUB_REPO }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.run_id }}   
+    - id: echo2
+      run: |
+        
+        docker image ls
+        
+        echo "repository variable : ${{ github.run_id }}"
+        echo Builder ${{ vars.BUILDER }}
+      shell: bash
+      env:
+        REPO: docker.io/${{ secrets.DOCKER_HUB_USER }}
