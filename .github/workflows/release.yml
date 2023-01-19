@@ -41,7 +41,7 @@ jobs:
         echo "organization variable : ${{ vars.ORGANIZATION_VAR }}"
         echo "overridden variable : ${{ vars.OVERRIDE_VAR }}"
         echo "variable from shell environment : $env_var"
-        echo Builder ${{ env.BUILDER }}
+        echo Builder ${{ vars.BUILDER }}
 
         
       shell: bash
