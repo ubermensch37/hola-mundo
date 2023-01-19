@@ -30,13 +30,15 @@ jobs:
         key: ${{ runner.os }}-pack-${{ hashFiles('**/pack*') }}
     - id: setup-pack
       uses: buildpacks/github-actions/setup-pack@v4.9.0
+    - name: build image
+      run: pack build -b paketobuildpacks/builder:base --path . --image hola-mundo
     - id: package
       run: |
-        pack build hola-mundo --builder paketobuildpacks/builder:base
+        
         docker image ls
-        docker tag hola-mundo:latest  ${{ secrets.DOCKER_HUB_USER }}/${REPO}:latest
-        docker image ls
-        docker push  ${{ secrets.DOCKER_HUB_USER }}/${REPO}:latest
+        echo  $BUILDER
+        echo 
+        
       shell: bash
       env:
         REPO: docker.io/${{ secrets.DOCKER_HUB_USER }}
@@ -44,6 +46,6 @@ jobs:
       uses: docker://ghcr.io/buildpacks/actions/registry/request-add-entry:4.9.0
       with:
         token:   ${{ secrets.PUBLIC_REPO_TOKEN }}
-        id:      ${{ steps.package.outputs.bp_id }}
+        id:      1
         version: ${{ steps.package.outputs.version }}
         address: ${{ steps.package.outputs.address }}
