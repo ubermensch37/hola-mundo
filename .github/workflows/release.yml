@@ -31,7 +31,7 @@ jobs:
     - id: setup-pack
       uses: buildpacks/github-actions/setup-pack@v4.9.0
     - name: build image
-      run: pack build hola-mundo -b paketobuildpacks/builder:base --path . 
+      run: pack build hola-mundo --builder paketobuildpacks/builder:base --path . 
     - id: package
       run: |
         
