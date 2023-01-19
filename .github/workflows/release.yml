@@ -48,7 +48,7 @@ jobs:
     - name: Push Image
       run: docker push ${{ secrets.DOCKER_HUB_REPO }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}
     - name: Login to IBM Cloud
-      uses: ibmcloud/ibm-cloud-cli-action@v1
+      uses: ibm/ibmcloud-cli-action@v1
       with:
         args: login --apikey ${{ secrets.IBM_USER}}
     - name: Push Image
