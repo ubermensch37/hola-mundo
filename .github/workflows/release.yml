@@ -31,7 +31,6 @@ jobs:
         docker tag hola-mundo:latest  ${{ secrets.DOCKER_HUB_USER }}/${REPO}:latest
         docker image ls
         docker push  ${{ secrets.DOCKER_HUB_USER }}/${REPO}:latest
-        
       shell: bash
       env:
         REPO: docker.io/${{ secrets.DOCKER_HUB_USER }}
