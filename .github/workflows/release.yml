@@ -33,16 +33,17 @@ jobs:
     - name: build image
       run: pack build ${{ secrets.DOCKER_IMAGE_NAME }} --builder ${{ vars.BUILDER }} --path . 
     - name: Tag Image
-      run: docker tag ${{ secrets.DOCKER_IMAGE_NAME }} ${{ secrets.DOCKER_HUB_REPO }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.run_id }}   
+      run: docker tag ${{ secrets.DOCKER_IMAGE_NAME }} ${{ secrets.DOCKER_HUB_REPO }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}   
     - id: echo2
       run: |
         
         docker image ls
         
         echo "repository variable : ${{ github.run_id }}"
+         echo "repository variable sha : ${{ github.sha }}"
         echo Builder ${{ vars.BUILDER }}
       shell: bash
       env:
         REPO: docker.io/${{ secrets.DOCKER_HUB_USER }}
     - name: Push Image
-      run: docker push ${{ secrets.DOCKER_HUB_REPO }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.run_id }}
+      run: docker push ${{ secrets.DOCKER_HUB_REPO }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}
