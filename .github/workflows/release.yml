@@ -47,8 +47,8 @@ jobs:
         REPO: docker.io/${{ secrets.DOCKER_HUB_USER }}
     - name: Push Image
       run: docker push ${{ secrets.DOCKER_HUB_REPO }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}
-    - name: Instal IBM Cloud CLI
-      uses: actions/ibmcloud-action@v1
+    - name: Instal IBM Cloud CLI URL
+      uses: https://github.com/IBM/actions-ibmcloud-cli
       with:
         APIKEY: ${{ secrets.IBM_USER}}
         CLOUD_REGION: us-south
