@@ -36,16 +36,15 @@ jobs:
       run: |
         
         docker image ls
-        echo  $BUILDER
-        echo 
+        
+        echo "repository variable : ${{ vars.REPOSITORY_VAR }}"
+        echo "organization variable : ${{ vars.ORGANIZATION_VAR }}"
+        echo "overridden variable : ${{ vars.OVERRIDE_VAR }}"
+        echo "variable from shell environment : $env_var"
+        echo Builder ${{ env.BUILDER }}
+
         
       shell: bash
       env:
         REPO: docker.io/${{ secrets.DOCKER_HUB_USER }}
-    - id: register
-      uses: docker://ghcr.io/buildpacks/actions/registry/request-add-entry:4.9.0
-      with:
-        token:   ${{ secrets.PUBLIC_REPO_TOKEN }}
-        id:      1
-        version: ${{ steps.package.outputs.version }}
-        address: ${{ steps.package.outputs.address }}
+    
