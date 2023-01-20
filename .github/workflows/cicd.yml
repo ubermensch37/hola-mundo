@@ -33,7 +33,7 @@ jobs:
       uses: actions/cache@v3
       with:
         path: /usr/local/bin/ibmcloud
-        key: ${{ runner.os }}-pack-${{ hashFiles('**/ibmcloud*') }}
+        key: ${{ runner.os }}-ibmcloud-${{ hashFiles('**/ibmcloud*') }}
     - id: setup-pack
       uses: buildpacks/github-actions/setup-pack@v4.9.0
     - name: build image
