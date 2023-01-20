@@ -34,17 +34,6 @@ jobs:
       run: pack build ${{ secrets.DOCKER_IMAGE_NAME }} --builder ${{ vars.BUILDER }} --path . 
     - name: Tag Image
       run: docker tag ${{ secrets.DOCKER_IMAGE_NAME }} ${{ secrets.DOCKER_HUB_REPO }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}   
-    - id: echo2
-      run: |
-        
-        docker image ls
-        
-        echo "repository variable : ${{ github.run_id }}"
-         echo "repository variable sha : ${{ github.sha }}"
-        echo Builder ${{ vars.BUILDER }}
-      shell: bash
-      env:
-        REPO: docker.io/${{ secrets.DOCKER_HUB_USER }}
     - name: Push Image
       run: docker push ${{ secrets.DOCKER_HUB_REPO }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}
     # Download and Install IBM Cloud CLI
@@ -58,7 +47,7 @@ jobs:
     # Authenticate with IBM Cloud CLI
     - name: Authenticate with IBM Cloud CLI
       run: |
-        ibmcloud login --apikey "${{ secrets.DOCKER_IMAGE_NAME }}" -r "us-south" -g default
+        ibmcloud login --apikey "${{ secrets.IBM_USER }}" -r "us-south" -g default
         ibmcloud cr region-set "us-south"
         ibmcloud cr login
 
