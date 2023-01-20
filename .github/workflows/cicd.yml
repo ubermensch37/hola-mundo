@@ -28,6 +28,12 @@ jobs:
       with:
         path: /usr/local/bin/pack
         key: ${{ runner.os }}-pack-${{ hashFiles('**/pack*') }}
+    - name: cache-ibmcloud
+      id: cache-ibmcloud
+      uses: actions/cache@v3
+      with:
+        path: /usr/local/bin/ibmcloud
+        key: ${{ runner.os }}-pack-${{ hashFiles('**/ibmcloud*') }}
     - id: setup-pack
       uses: buildpacks/github-actions/setup-pack@v4.9.0
     - name: build image
