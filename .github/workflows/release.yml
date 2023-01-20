@@ -50,6 +50,7 @@ jobs:
     - name: Login to IBM Cloud
       uses: IBM/actions-ibmcloud-cli@master
       with:
-        args: login --apikey ${{ secrets.IBM_USER }}
+        APIKEY: ${{ secrets.IBM_USER }}
+        CLOUD_REGION: us-south
     - name: Deploy To Code Engine
       run: ibmcloud cr image-push ${{ secrets.DOCKER_HUB_REPO }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}
