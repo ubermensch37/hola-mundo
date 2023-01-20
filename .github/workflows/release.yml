@@ -47,10 +47,20 @@ jobs:
         REPO: docker.io/${{ secrets.DOCKER_HUB_USER }}
     - name: Push Image
       run: docker push ${{ secrets.DOCKER_HUB_REPO }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}
-    - name: Login to IBM Cloud
-      uses: IBM/actions-ibmcloud-cli@master
-      with:
-        APIKEY: ${{ secrets.IBM_USER }}
-        CLOUD_REGION: us-south
+    # Download and Install IBM Cloud CLI
+    - name: Install IBM Cloud CLI
+      run: |
+        curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
+        ibmcloud --version
+        ibmcloud config --check-version=false
+        ibmcloud plugin install -f kubernetes-service
+        ibmcloud plugin install -f container-registry
+    # Authenticate with IBM Cloud CLI
+    - name: Authenticate with IBM Cloud CLI
+      run: |
+        ibmcloud login --apikey "${{ secrets.DOCKER_IMAGE_NAME }}" -r "us-south" -g default
+        ibmcloud cr region-set "us-south"
+        ibmcloud cr login
+
     - name: Deploy To Code Engine
       run: ibmcloud cr image-push ${{ secrets.DOCKER_HUB_REPO }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}
