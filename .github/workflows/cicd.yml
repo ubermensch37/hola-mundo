@@ -34,6 +34,7 @@ jobs:
       with:
         path: /usr/local/bin/ibmcloud
         key: ${{ runner.os }}-ibmcloud-${{ hashFiles('**/ibmcloud*') }}
+    # Configurar paketo https://paketo.io/
     - id: setup-pack
       uses: buildpacks/github-actions/setup-pack@v4.9.0
     - name: build image
