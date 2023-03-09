@@ -22,6 +22,31 @@ jobs:
         registry: docker.io
         username: ${{ secrets.DOCKER_HUB_USER }}
         password: ${{ secrets.DOCKER_HUB_PASS }}
+    ## NEW FORTIFY
+    - name: Setup Java
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Download Fortify ScanCentral Client
+      uses: fortify/gha-setup-scancentral-client@v1
+    - name: Package Code + Dependencies
+      run: scancentral package $PACKAGE_OPTS -o package.zip
+      env:
+        PACKAGE_OPTS: "-bt mvn"
+    - name: Download Fortify on Demand Universal CI Tool
+      uses: fortify/gha-setup-fod-uploader@v1
+    - name: Perform SAST Scan
+      run: java -jar $FOD_UPLOAD_JAR -z package.zip -aurl $FOD_API_URL -purl $FOD_URL -rid "$FOD_RELEASE_ID" -tc "$FOD_TENANT" -uc "$FOD_USER" "$FOD_PAT" $FOD_UPLOADER_OPTS -n "$FOD_UPLOADER_NOTES"
+      env: 
+        FOD_TENANT: ${{ secrets.FOD_TENANT }}  
+        FOD_USER: ${{ secrets.FOD_USER }}
+        FOD_PAT: ${{ secrets.FOD_PAT }}
+        FOD_RELEASE_ID: ${{ secrets.FOD_RELEASE_ID }}
+        FOD_URL: ${{ secrets.FOD_URL }}
+        FOD_API_URL: ${{ secrets.FOD_API_URL }}
+        FOD_UPLOADER_OPTS: "-ep 2 -pp 0"
+        FOD_UPLOADER_NOTES: 'Triggered by GitHub Actions (${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})'
+    ## END FORTIFY
     - name: Cache Pack
       id: cache-pack
       uses: actions/cache@v3
