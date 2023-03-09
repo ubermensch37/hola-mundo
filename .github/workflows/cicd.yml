@@ -38,7 +38,7 @@ jobs:
     - name: Echo
       run: ls -la $FOD_UPLOAD_JAR 
     - name: Perform SAST Scan
-      run: java -jar $FOD_UPLOAD_JAR -z package.zip -aurl https://api.trial.fortify.com -purl https://trial.fortify.com -rid "1" -tc "Nacional_Monte_De_Piedad_757950191_FMA_198936738" -uc "dfonseca@montepiedad.com.mx" "UUdXbHpJNmpVdzM-YnJMV0tKLzljenFuOk9QNjVo0"  
+      run: java -jar $FOD_UPLOAD_JAR -z package.zip -aurl https://api.trial.fortify.com -purl https://trial.fortify.com -rid "1" -tc "Nacional_Monte_De_Piedad_757950191_FMA_198936738" -uc "dfonseca@montepiedad.com.mx" "UUdXbHpJNmpVdzM-YnJMV0tKLzljenFuOk9QNjVo0" -ep SingleScanFirstThenSubscription 
       env: 
         FOD_TENANT: ${{ secrets.FOD_TENANT }}  
         FOD_USER: ${{ secrets.FOD_USER }}
