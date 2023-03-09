@@ -35,8 +35,10 @@ jobs:
         PACKAGE_OPTS: "-bt mvn"
     - name: Download Fortify on Demand Universal CI Tool
       uses: fortify/gha-setup-fod-uploader@v1
+    - name: Echo
+      run: env
     - name: Perform SAST Scan
-      run: java -jar target/hola-mundo-0.0.1-SNAPSHOT.jar -z package.zip -aurl $FOD_API_URL -purl $FOD_URL -rid "$FOD_RELEASE_ID" -tc "$FOD_TENANT" -uc "$FOD_USER" "$FOD_PAT" $FOD_UPLOADER_OPTS -n "$FOD_UPLOADER_NOTES"
+      run: java -jar $FOD_UPLOAD_JAR -z package.zip -aurl $FOD_API_URL -purl $FOD_URL -rid "$FOD_RELEASE_ID" -tc "$FOD_TENANT" -uc "$FOD_USER" "$FOD_PAT" $FOD_UPLOADER_OPTS -n "$FOD_UPLOADER_NOTES"
       env: 
         FOD_TENANT: ${{ secrets.FOD_TENANT }}  
         FOD_USER: ${{ secrets.FOD_USER }}
