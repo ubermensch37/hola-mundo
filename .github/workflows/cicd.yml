@@ -47,7 +47,7 @@ jobs:
         FOD_URL: ${{ secrets.FOD_URL }}
         FOD_API_URL: ${{ secrets.FOD_API_URL }}
         FOD_UPLOADER_OPTS: "-ep 2 -pp 0"
-        FOD_UPLOADER_NOTES: 'Triggered by GitHub Actions (${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})'
+        FOD_UPLOADER_NOTES: 'Triggered by GitHub Actions'
     ## END FORTIFY
     - name: Cache Pack
       id: cache-pack
